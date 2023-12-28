@@ -17,6 +17,21 @@ class HelloWorld(MessagingHandler):
         super(HelloWorld, self).__init__()
         self.server = server
 
+    """
+    rxheaders = ssn.receiver("match-q;
+                            {create: always
+                            , node: {type: queue}
+                            , link:{x-bindings:[{key: 'binding-name'
+                                            , exchange: 'amq.match'
+                                            , queue: 'match-q'
+                                            , arguments:{'x-match': 'any', 'header1': 'value1'}
+                                            }]
+                                    }
+                            }")
+
+    connection.open_receiver({source:{address:'amq.match', filter:{'foo':amqp_types.wrap_described({'nat': 'it','prod': 'a22', 'x-match': 'all'}, 0x468C00000002)}}});                                            
+    """
+
     def on_start(self, event):
         
         # b = Described(symbol('two'), "match-p;{create: always, node: {type: queue}, link:{x-bindings:[{key: 'binding-name', exchange: 'amq.match', queue: 'match-p', arguments:{'x-match': 'any', '1': 'apple'}}]}}")
@@ -26,7 +41,7 @@ class HelloWorld(MessagingHandler):
         
         self.receiver = event.container.create_receiver(conn
                                                         , "amq.topic/the_producer.hot_comic_today" 
-                                                        , options=Selector("TheProducerSent = 'yes' AND HotComicToday = 'yes'"))
+                                                        , options=[AtMostOnce(), Selector("colour = 'gree' AND colour1 = 'gree1'")])
                                                         
         
         
@@ -37,47 +52,22 @@ class HelloWorld(MessagingHandler):
 
         
         print(f"received comics today：\n{json.dumps(json.loads(event.message.body), indent=2)}")
+
         chosenNum = input('choose which comics you want: \n')
+        
         self.sender.send(Message(body=f"{chosenNum}"))
         print(f"sent back to producer：{chosenNum} ")
         self.sender.close()
-        event.connection.close()
+        #event.connection.close()
 
 
-class WaitForComplete(MessagingHandler):
-    def __init__(self, server):
-        super(WaitForComplete, self).__init__()
-        self.server = server
-
-    def on_start(self, event):
-        
-        # b = Described(symbol('two'), "match-p;{create: always, node: {type: queue}, link:{x-bindings:[{key: 'binding-name', exchange: 'amq.match', queue: 'match-p', arguments:{'x-match': 'any', '1': 'apple'}}]}}")
-        # a = {symbol('two'):b}
-        conn = event.container.connect(self.server, password="guest", user ="guest" )
-
-        
-        self.receiver = event.container.create_receiver(conn
-                                                        , "amq.topic/the_producer.hot_comic_today" 
-                                                        , options=Selector("TheProducerSent = 'yes' AND HotComicToday = 'done'"))
-                                                        
-    def on_message(self, event):
-
-        
-        print(f"received comics complete：\n {event.message.body}")
-        event.connection.close()
-        
-        
-        
 
 
 if __name__ ==  '__main__':
 
     try:
         
-        a = Container(HelloWorld("localhost:5672"))
-        b = Container(WaitForComplete("localhost:5672"))
-        a.run()
-        b.run()
+        Container(HelloWorld("localhost:5672")).run()
     except KeyboardInterrupt as e:
         
  

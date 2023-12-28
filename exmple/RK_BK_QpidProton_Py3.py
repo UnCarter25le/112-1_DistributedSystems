@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from proton import Message
 from proton.handlers import MessagingHandler
 from proton.reactor import Container
