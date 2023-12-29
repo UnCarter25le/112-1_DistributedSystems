@@ -13,13 +13,15 @@ import os
 _BASE_PATH = "/".join(os.path.abspath(__file__).split("/")[:-2]) 
 sys.path.append(_BASE_PATH) # 因為此行生效，所以才能引用他處的module
 
+
+
 class WaitForComicList(MessagingHandler):
     def __init__(self, server):
         super(WaitForComicList, self).__init__()
         self.server = server
         self.chosenNum = 0
         self.producerMode = {"1" : "basic", "2" : "basic+premium"}
-        self.consumerId = "Consumers_1"
+        self.consumerId = "Consumers_2"
         self.mission = "WaitForComicList"
 
     def on_start(self, event):
@@ -38,17 +40,17 @@ class WaitForComicList(MessagingHandler):
 
         print(f"<<<<<<< {self.consumerId} on_message begins: {self.mission}")
         msgJson = json.loads(event.message.body)
-        msgJsonStr = json.dumps(json.loads(event.message.body), indent=2 , ensure_ascii=False)
-        modeJsonStr = json.dumps(self.producerMode, indent=2 , ensure_ascii=False)
+        msgJsonStr = json.dumps(json.loads(event.message.body), indent=2, ensure_ascii=False)
+        modeJsonStr = json.dumps(self.producerMode, indent=2, ensure_ascii=False)
         print(f"Received comics today：\n{msgJsonStr} \n ; if no need, enter q")
         # print(f"There are two producer mode for choosing：\n{modeJsonStr}")
         chosenNum = input('【choose which comics you want:】 \n')
 
         while True:
             if chosenNum == "q":
-                break
+                break          
             elif chosenNum == "":
-                chosenNum = 0       
+                chosenNum = 0                 
             tmp = int(chosenNum)
             if(0 < tmp <= len(msgJson)):
                 break
@@ -84,7 +86,7 @@ class WaitForComplete(MessagingHandler):
     def __init__(self, server):
         super(WaitForComplete, self).__init__()
         self.server = server
-        self.consumerId = "Consumers_1"
+        self.consumerId = "Consumers_2"
         self.mission = "WaitForComplete"
     def on_start(self, event):
         

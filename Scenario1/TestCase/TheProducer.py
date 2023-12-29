@@ -9,18 +9,16 @@ import sys
 
 
 
-_BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_BASE_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(_BASE_PATH) # 因為此行生效，所以才能引用他處的module
 
-from libs.httpRequests import httpClientBuild
 from libs.manipulateDir import folderDataManipulate
 
 class DeliverHotComicToday(MessagingHandler):
     
-    def __init__(self, server, httpClient):
+    def __init__(self, server):
         super(DeliverHotComicToday, self).__init__()
         self.server = server
-        self.httpClient = httpClient
         self.mission = "DeliverHotComicToday"
     
     def on_start(self, event):
@@ -34,16 +32,9 @@ class DeliverHotComicToday(MessagingHandler):
     def on_sendable(self, event):    
         print(f"<<<<<<< TheProducer on_sendable begins : {self.mission}")    
 
-        hotComicList = self.httpClient.getHotComicList()
-        msgForSend = {}
-        for row in hotComicList:
-            ordinal = list(row.keys())[0]
-            comic = row[ordinal]["comic"] 
-            msgForSend[ordinal] = comic
-        self.sender.send(Message(body=json.dumps(msgForSend, ensure_ascii=False)
+        self.sender.send(Message(body=json.dumps({"1" : "20th Century Boys", "2" : "DragonBall Z", "3" :"Crayon Shin-chan"})
                                 , properties={'TheProducerSent': "yes", 'HotComicToday': "yes" }
-                                ,  id = "TheProducer"))
-        
+                                ,  id = "FromTheProducer"))
         self.sender.close()
         event.connection.close()   
         print(f">>>>>>> TheProducer on_sendable done")         
@@ -204,9 +195,9 @@ class ReceiveWorkerCondition(MessagingHandler):
 
 
 try:
-    httpClient = httpClientBuild()
+    
     folderManipulator = folderDataManipulate()
-    hotComicToday = Container(DeliverHotComicToday("localhost:5672", httpClient))
+    hotComicToday = Container(DeliverHotComicToday("localhost:5672"))
     hotComicToday.container_id = "TheProducer"
     comicListChosen = Container(ReceiveComicListChosen("localhost:5672", folderManipulator))
     comicListChosen.container_id = "TheProducer"
