@@ -88,7 +88,7 @@ class httpClientBuild(object):
           return episodeJson    
     
     def downloadPage(self, pageUrl, filepath):
-        dirRoute = f"{_BASE_PATH}/HotComicToday/{filepath}"
+        dirRoute = f"{_BASE_PATH}/{filepath}"
         res = requests.get(f"https://cc.fun8.us//2e5fc/{pageUrl}",  headers=self.headers)      
         with open(dirRoute, 'wb') as f:
             f.write(res.content)                    

@@ -152,12 +152,15 @@ class ReceiveComicListChosen(MessagingHandler):
                             i += 1
                             pageNum = f"00{i}" if len(str(i)) == 1 else f"0{i}"
                             tmpUrl = f"{comicNumCode}/{latestEpisodeNum}/{pageNum}.jpg"
-                            for consumer in kvobj["consumers"]:
-                                filepath = f"{consumer}/{comic}/{latestEpisode}/{pageNum}.jpg"
-                                totalUrlDict.append((tmpUrl, filepath))
+                            # for consumer in kvobj["consumers"]:
+                            #     filepath = f"{consumer}/{comic}/{latestEpisode}/{pageNum}.jpg"
+                            #     totalUrlDict.append((tmpUrl, filepath))
+                            
+                            filepath = f"{{0}}/{comic}/{latestEpisode}/{pageNum}.jpg"
+                            totalUrlDict.append((tmpUrl, filepath, kvobj["consumers"]))
 
                     """
-                    [('8151/151/016.jpg', 'Consumers_2/電鋸人/第151話/016.jpg')] 
+                    [('8151/151/016.jpg', '{0}/電鋸人/第151話/016.jpg', ['Consumers_1'])] 
                     """
 
 
@@ -174,13 +177,13 @@ class ReceiveComicListChosen(MessagingHandler):
                         
                         self.sender.send(Message(body=json.dumps(totalUrlDict[0:dividedBenchNum], ensure_ascii=False)
                                                 
-                                                , properties={'TotalUrlNum' : f"{dividedBenchNum}", 'LaborNo': '1'} # 'premium-labor': 'yes' # "consumers" : json.dumps(self.comicChosenDict[comicName]["consumers"])
+                                                , properties={'TotalUrlNum' : f"{len(totalUrlDict[0:dividedBenchNum])}", 'LaborNo': '1'} # 'premium-labor': 'yes' # "consumers" : json.dumps(self.comicChosenDict[comicName]["consumers"])
                                                 
                                                 ))        
                         #
                         self.sender.send(Message(body=json.dumps(totalUrlDict[dividedBenchNum:], ensure_ascii=False)
                                                 
-                                                , properties={'TotalUrlNum' : f"{totalNumForSend-dividedBenchNum+1}", 'LaborNo': '2'} 
+                                                , properties={'TotalUrlNum' : f"{len(totalUrlDict[dividedBenchNum:])}", 'LaborNo': '2'} 
                                                 
                                                 ))    
                         self.sender.send(Message(body=json.dumps([], ensure_ascii=False)
@@ -192,18 +195,18 @@ class ReceiveComicListChosen(MessagingHandler):
                         # scalability depends on needs  
                         self.sender.send(Message(body=json.dumps(totalUrlDict[0:dividedBenchNum], ensure_ascii=False)
                                                 
-                                                , properties={'TotalUrlNum' : f"{dividedBenchNum}", 'LaborNo': '1'} # 'premium-labor': 'yes' # "consumers" : json.dumps(self.comicChosenDict[comicName]["consumers"])
+                                                , properties={'TotalUrlNum' : f"{len(totalUrlDict[0:dividedBenchNum])}", 'LaborNo': '1'} # 'premium-labor': 'yes' # "consumers" : json.dumps(self.comicChosenDict[comicName]["consumers"])
                                                 
                                                 ))        
                         
                         self.sender.send(Message(body=json.dumps(totalUrlDict[dividedBenchNum:dividedBenchNum*2], ensure_ascii=False)
                                                 
-                                                , properties={'TotalUrlNum' : f"{dividedBenchNum}", 'LaborNo': '2'} 
+                                                , properties={'TotalUrlNum' : f"{len(totalUrlDict[dividedBenchNum:dividedBenchNum*2])}", 'LaborNo': '2'} 
                                                 
                                                 ))                            
                         self.sender.send(Message(body=json.dumps(totalUrlDict[dividedBenchNum*2:], ensure_ascii=False)
                                                 
-                                                , properties={'TotalUrlNum' : f"{totalNumForSend-dividedBenchNum*2+1}", 'LaborNo': '3'} 
+                                                , properties={'TotalUrlNum' : f"{len(totalUrlDict[dividedBenchNum*2:])}", 'LaborNo': '3'} 
                                                 
                                                 ))                       
                             

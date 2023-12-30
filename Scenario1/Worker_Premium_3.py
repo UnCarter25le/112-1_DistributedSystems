@@ -17,13 +17,15 @@ _BASE_PATH = "/".join(os.path.abspath(__file__).split("/")[:-2])
 sys.path.append(_BASE_PATH) # 因為此行生效，所以才能引用他處的module
 
 from libs.httpRequests import httpClientBuild
+from libs.manipulateDir import folderDataManipulate
 
 
 class DoCrawlingJob(MessagingHandler):
-    def __init__(self, server, httpClient):
+    def __init__(self, server, httpClient, folderManipulator):
         super(DoCrawlingJob, self).__init__()
         self.server = server
         self.httpClient = httpClient
+        self.folderManipulator = folderManipulator
         self.consumerId = "premium_worker_3"
         self.mission = "DoCrawlingJob"
 
@@ -42,7 +44,7 @@ class DoCrawlingJob(MessagingHandler):
     def on_message(self, event):
         """
         msgJson
-        [('8151/151/016.jpg', 'Consumers_2/電鋸人/第151話/016.jpg')] 
+        [('8151/151/016.jpg', '{0}/電鋸人/第151話/016.jpg', ['Consumers_1'])] 
         """
         time.sleep(2)
         print(f"<<<<<<< {self.consumerId} on_message begins : {self.mission}")
@@ -58,7 +60,22 @@ class DoCrawlingJob(MessagingHandler):
             # handling
 
             for row in msgJson:
-                self.httpClient.downloadPage(row[0], row[1])
+                url = row[0]
+                filepath = f"HotComicToday/{row[1]}"
+                consumersList = row[2]
+                srcFilepath = ""
+                i = 0
+                for consumer in consumersList:
+                    if i >= 1:
+                        # copy file
+                        dstFilepath = filepath.format(consumer)
+                        self.folderManipulator.copyFile(srcFilepath, dstFilepath)
+                    else:
+                        # download 
+                        srcFilepath = filepath.format(consumer)
+                        self.httpClient.downloadPage(url, srcFilepath)
+                    i += 1
+
                 time.sleep(0.5 + random.random() * 0.5)
 
 
@@ -76,7 +93,8 @@ if __name__ ==  '__main__':
 
     try:
         httpClient = httpClientBuild()
-        Container(DoCrawlingJob("localhost:5672", httpClient)).run()
+        folderManipulator = folderDataManipulate()
+        Container(DoCrawlingJob("localhost:5672", httpClient, folderManipulator)).run()
     except KeyboardInterrupt as e:
         
  

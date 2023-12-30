@@ -50,3 +50,7 @@ class folderDataManipulate(object):
         except OSError as e:   
             raise
 
+    def copyFile(self, srcFilepath, dstFilepath, keyword=""):
+        src = f"{self._BASE_PATH}/{srcFilepath}"
+        dst = f"{self._BASE_PATH}/{dstFilepath}"
+        shutil.copy(src, dst)
