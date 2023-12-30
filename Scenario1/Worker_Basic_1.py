@@ -9,14 +9,21 @@ import threading
 import sys
 import json
 import os
+import random
+import time
+
 
 _BASE_PATH = "/".join(os.path.abspath(__file__).split("/")[:-2]) 
 sys.path.append(_BASE_PATH) # 因為此行生效，所以才能引用他處的module
 
+from libs.httpRequests import httpClientBuild
+
+
 class DoCrawlingJob(MessagingHandler):
-    def __init__(self, server):
+    def __init__(self, server, httpClient):
         super(DoCrawlingJob, self).__init__()
         self.server = server
+        self.httpClient = httpClient
         self.consumerId = "basic_worker_1"
         self.mission = "DoCrawlingJob"
 
@@ -33,6 +40,10 @@ class DoCrawlingJob(MessagingHandler):
         
 
     def on_message(self, event):
+        """
+        msgJson
+        [('8151/151/016.jpg', 'Consumers_2/電鋸人/第151話/016.jpg')] 
+        """
         time.sleep(2)
         print(f"<<<<<<< {self.consumerId} on_message begins : {self.mission}")
         msgJson = json.loads(event.message.body)
@@ -40,19 +51,19 @@ class DoCrawlingJob(MessagingHandler):
         print(f"Received property of msg：\n{json.dumps(event.message.properties, indent=2, ensure_ascii=False)}")
 
         
-        if event.message.properties["Comic"] == "q":
+        if event.message.properties["TotalUrlNum"] == "0":
 
-
-            self.sender.send(Message(body="done"
-                                    , id = self.consumerId))
+            pass
         else:
             # handling
 
+            for row in msgJson:
+                self.httpClient.downloadPage(row[0], row[1])
+                time.sleep(0.5 + random.random() * 0.5)
 
 
-            
-            self.sender.send(Message(body="done"
-                                    , id = self.consumerId))            
+        self.sender.send(Message(body="done"
+                                , id = self.consumerId))            
             
         self.sender.close()
         event.connection.close()
@@ -64,8 +75,8 @@ class DoCrawlingJob(MessagingHandler):
 if __name__ ==  '__main__':
 
     try:
-        
-        Container(DoCrawlingJob("localhost:5672")).run()
+        httpClient = httpClientBuild()
+        Container(DoCrawlingJob("localhost:5672", httpClient)).run()
     except KeyboardInterrupt as e:
         
  

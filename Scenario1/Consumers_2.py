@@ -37,7 +37,14 @@ class WaitForComicList(MessagingHandler):
         
 
     def on_message(self, event):
-
+        """
+        msgJson
+        {
+        "1": "20th Century Boys",
+        "2": "DragonBall Z",
+        "3": "Crayon Shin-chan"
+        }
+        """
         print(f"<<<<<<< {self.consumerId} on_message begins: {self.mission}")
         msgJson = json.loads(event.message.body)
         msgJsonStr = json.dumps(json.loads(event.message.body), indent=2, ensure_ascii=False)
@@ -72,7 +79,7 @@ class WaitForComicList(MessagingHandler):
             #         "mode" : { "ordinal" : chosenMode , "name" : self.producerMode[chosenMode]}}
                        
         else:
-            msgBack = {"comic": {"ordinal" : "" , "name" : "q"}}       
+            msgBack = {"comic": {"ordinal" : "" , "name" : {"comic":"q", "status":"q"}}}     
             # msgBack = {"comic": {"ordinal" : "" , "name" : "q"},
             #         "mode" : { "ordinal" : "" , "name" : "q"}}     
         self.sender.send(Message(body=json.dumps(msgBack, ensure_ascii=False)

@@ -40,7 +40,7 @@ class DoCrawlingJob(MessagingHandler):
         print(f"Received property of msg：\n{json.dumps(event.message.properties, indent=2, ensure_ascii=False)}")
 
         
-        if event.message.properties["Comic"] == "q":
+        if event.message.properties["TotalUrlNum"] == "0":
 
 
             self.sender.send(Message(body="done"

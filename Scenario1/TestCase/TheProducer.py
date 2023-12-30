@@ -78,8 +78,8 @@ class ReceiveComicListChosen(MessagingHandler):
                 self.forsureDoingNum += 1
                 self.comicNameList.append(msgJson["comic"]["name"])
 
-            if self.feedbacknum == 2 and len(self.comicNameList) == 2:
-                if self.forsureDoingNum >= 1:
+            if self.feedbacknum == 2:
+                if self.forsureDoingNum >= 1 and len(self.comicNameList) != 0:
                     # de duplicated comic name
                     comicNameSet = set(self.comicNameList)
                     print(comicNameSet)
