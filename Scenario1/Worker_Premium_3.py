@@ -94,7 +94,9 @@ if __name__ ==  '__main__':
     try:
         httpClient = httpClientBuild()
         folderManipulator = folderDataManipulate()
-        Container(DoCrawlingJob("localhost:5672", httpClient, folderManipulator)).run()
+        doCrawlingJob = Container(DoCrawlingJob("localhost:5672", httpClient, folderManipulator))
+        doCrawlingJob.container_id = "premium_worker_3"
+        doCrawlingJob.run()
     except KeyboardInterrupt as e:
         
  

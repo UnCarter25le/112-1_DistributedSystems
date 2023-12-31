@@ -120,7 +120,9 @@ if __name__ ==  '__main__':
     try:
         
         waitForComicList = Container(WaitForComicList("localhost:5672"))
+        waitForComicList.container_id = "Consumers_2"
         waitForComplete = Container(WaitForComplete("localhost:5672"))
+        waitForComplete.container_id = "Consumers_2"
         waitForComicList.run()
         waitForComplete.run()
     except KeyboardInterrupt as e:
