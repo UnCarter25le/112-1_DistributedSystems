@@ -47,13 +47,16 @@ class WaitForComicList(MessagingHandler):
         while True:
             if chosenNum == "q":
                 break
-            elif chosenNum == "":
-                chosenNum = 0       
-            tmp = int(chosenNum)
-            if(0 < tmp <= len(msgJson)):
-                break
             else:
-                chosenNum = input('number should be on the list;choose which comics you want: \n')
+                try:
+                    tmp = int(chosenNum)
+                    if(0 < tmp <= len(msgJson)):
+                        break
+                    else:
+                        chosenNum = input('number should be on the list;choose which comics you want: \n')
+                except ValueError as e:
+                    chosenNum = input('number should be on the list;choose which comics you want: \n')
+
 
 
         if chosenNum != "q":
