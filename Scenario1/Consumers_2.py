@@ -1,11 +1,7 @@
 # -*- coding:utf-8 -*-
-from proton import Message,symbol, ulong, PropertyDict, Described
+from proton import Message
 from proton.handlers import MessagingHandler
-from proton.reactor import Container, Selector, Filter, Copy, ReceiverOption, AtMostOnce
-import time
-import multiprocessing as mp
-from threading import Thread
-import threading
+from proton.reactor import Container, Selector
 import sys
 import json
 import os

@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 from proton import Message
 from proton.handlers import MessagingHandler
-from proton.reactor import Container, Selector, AtMostOnce
-import time
+from proton.reactor import Container
+import datetime
 import json
 import os
 import sys
@@ -305,6 +305,10 @@ try:
     
     hotComicToday.run()
     comicListChosen.run()
+    beginTime = datetime.datetime.now().timestamp()
     workerCondition.run()
+    endTime = datetime.datetime.now().timestamp()
+    print(f"Time splased: {round(endTime - beginTime)} seconds.")
+
 except KeyboardInterrupt as e:
     pass
