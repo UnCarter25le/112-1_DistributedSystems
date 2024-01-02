@@ -1,6 +1,6 @@
 ﻿# Preface:
 
-### 1. This repo is for in-service course, distributed systems instructed by [Dr. Liao](http://cfliao.net/en/doku.php).
+### 1. This repo is for in-service course, distributed systems lectured by [Dr. Liao](http://cfliao.net/en/doku.php).
 
 #### - Coworker is [Shelley](https://github.com/ShelleyHsu).
 
@@ -13,10 +13,11 @@
 
 1. Please use [Windows OS](https://qpid.apache.org/components/index.html) and powershell termianl for executing command.
 
-2. Software must installed:
-    - To active _Qpid Broker-J(Message Server)_, it must install [JDK_17](https://www.oracle.com/tw/java/technologies/downloads/#jdk17-windows) and [Maven_3.9.5](https://maven.apache.org/download.cgi).
+2. Softwares must be installed: 
 
-    - To deliver message via _Qpid Proton(Message API)_, my advise is to install [Python3.12](https://www.python.org/downloads/windows/) or [Python3.8 up](https://github.com/apache/qpid-proton/blob/main/INSTALL.md). Please pip install [python-qpid-proton](https://pypi.org/project/python-qpid-proton/) v0.39.0 . The requirements.txt is below:
+    - To active __Qpid Broker-J(Message Server)__, it must install [JDK_17](https://www.oracle.com/tw/java/technologies/downloads/#jdk17-windows) and [Maven_3.9.5](https://maven.apache.org/download.cgi).
+
+    - To deliver message via __Qpid Proton(Message API)__, my advise is to install [Python3.12](https://www.python.org/downloads/windows/) or [Python3.8 up](https://github.com/apache/qpid-proton/blob/main/INSTALL.md). Please pip install [python-qpid-proton](https://pypi.org/project/python-qpid-proton/) v0.39.0 . The requirements.txt is listed below:
         ```
         beautifulsoup4==4.12.2
         certifi==2023.11.17
@@ -30,17 +31,17 @@
         urllib3==2.1.0            
         ```
 
-        * Optionally, intallation of [Python2.7.18](https://www.python.org/downloads/windows/) is also a way to deliver message via _Qpid Messaging API Python(Message API)_. Please pip install [qpid-python](https://pypi.org/project/qpid-python/) v1.36.0-1 . The requirements.txt is below:
+        * Optionally, intallation of [Python2.7.18](https://www.python.org/downloads/windows/) is also a way to deliver message via __Qpid Messaging API Python(Message API)__. Please pip install [qpid-python](https://pypi.org/project/qpid-python/) v1.36.0-1 . The requirements.txt is listed below:
         ```
         qpid-python==1.36.0.post1
         ```
 
-3.  Install and active _Qpid Broker-J(Message Server)_:
+3.  Install and active __Qpid Broker-J(Message Server)__:
     
-    1. _PLEASE FOLLOW THE INSTRUCTION TO SET ENVIRONMENT VARIABLE_
+    1. __PLEASE FOLLOW THE INSTRUCTION TO SET ENVIRONMENT VARIABLE__
     ![Alt text](/readmePhotos/Screenshot%202024-01-02%20172705.png)
 
-        Tow photo to reference:
+        Tow photo for reference:
 
         ![Alt text](/readmePhotos/Screenshot%202024-01-02%20172932.png)
         ![Alt text](/readmePhotos/Screenshot%202024-01-02%20173020.png)
@@ -55,7 +56,7 @@
         `mvn clean package -DskipTests`.
             - (What's [DskipTests](https://github.com/apache/qpid-broker-j/blob/main/doc/developer-guide/src/main/markdown/build-instructions.md#maven-commands).)
         
-        2. cd to folder _qpid-broker-j/apache-qpid-broker-j/target_, and find out packaged zip file called _apache-qpid-broker-j-9.1.1-SNAPSHOT-bin.zip_. That's what we need.
+        2. cd to folder _qpid-broker-j/apache-qpid-broker-j/target_, and find out packaged zip file called _apache-qpid-broker-j-9.1.1-SNAPSHOT-bin.zip_. __That's what we need__.
 
     4. Running the Broker:
 
@@ -67,7 +68,7 @@
 
         3. _START BROKER_:
             1.  cd to folder _qpid-broker/9.1.1-SNAPSHOT/bin_.
-                - If not set QPID_WORK, it's possible to see config.json located the folder _qpid-broker/9.1.1-SNAPSHOT/bin_.
+                - If not set QPID_WORK, it's possible to see config.json located in the folder _qpid-broker/9.1.1-SNAPSHOT/bin_.
             2. execute command `.\qpid-server.bat`.
         
             ![Alt text](/readmePhotos/Screenshot%202024-01-02%20174510.png)
@@ -100,10 +101,10 @@
     - TestCase/
         These are for showing the effect of project without doing request.
 
-    - Python files at this folder level:
+    - __Python files at this folder level:__
         - TheProducer.py
             1. Request [target website](https://www.cartoonmad.com/hotrank.html) and send hot comic list today to two consumers.
-            2. Accept the feedback sent by two consumers and preparing workload to _distribute_ it to two or three workers based on the volumen of workload.
+            2. Accept the feedback sent by two consumers and preparing workload to __distribute__ it to two or three workers based on the volumen of workload.
                 
                 - If needed, create the folders for saving files.
 
@@ -113,9 +114,9 @@
             2. Wait unitil receive the completion notification sent by the producer.
 
         - Worker_Basic_1.py, Worker_Basic_2.py and Worker_Premium_3.py
-            1. Accept the distributed workload and request target website for the latest pages of comic book designated by consumers.
+            1. Accept the __distributed workload__ and request target website for the latest pages of comic book designated by consumers.
 
-            2. Save the pages files to local. After done workload, send back completion message to the producer.
+            2. Save the pages files to localhost, "HotComicToday/". After done workload, send back completion message to the producer.
 
 - exmple/
 
@@ -165,7 +166,7 @@
 ![Alt text](readmePhotos/Screenshot%202024-01-02%20183722.png)
 
 ---
-# Other offical and persuasive reference is below:
+# Other offical and persuasive reference are listed below:
 
 
 
