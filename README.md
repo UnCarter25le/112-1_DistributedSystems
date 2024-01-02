@@ -1,18 +1,8 @@
-﻿# Words for people intrigued in this project：
-
-1. If needed, type the command below for pull request:
-    
-    - `git remote add origin git@github.com:UnCarter25le/112-1_DistributedSystems.git`
-
-
-    - `git push -u origin feature/Carter`
-    
----
-
-# Preface:
+﻿# Preface:
 
 ### 1. This repo is for in-service course, distributed systems instructed by [Dr. Liao](http://cfliao.net/en/doku.php).
-- Coworker is [Shelley](https://github.com/ShelleyHsu).
+
+#### - Coworker is [Shelley](https://github.com/ShelleyHsu).
 
 ### 2. This project in this repo is about [Apache Qpid](https://qpid.apache.org/index.html).
 
