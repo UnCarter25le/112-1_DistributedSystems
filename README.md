@@ -1,6 +1,6 @@
 ﻿# Preface:
 
-### 1. This repo is for in-service course, distributed systems lectured by [Dr. Liao](http://cfliao.net/en/doku.php).
+### 1. This repo is for the in-service course, distributed systems lectured by [Dr. Liao](http://cfliao.net/en/doku.php).
 
 #### - Coworker is [Shelley](https://github.com/ShelleyHsu).
 
@@ -39,12 +39,15 @@
 3.  Install and active __Qpid Broker-J(Message Server)__:
     
     1. __PLEASE FOLLOW THE INSTRUCTION TO SET ENVIRONMENT VARIABLE__
-    ![Alt text](/readmePhotos/Screenshot%202024-01-02%20172705.png)
+        
+        - [Quick Start Guide](https://github.com/apache/qpid-broker-j/blob/main/doc/developer-guide/src/main/markdown/quick-start.md)
 
-        Tow photo for reference:
+            ![Alt text](/readmePhotos/Screenshot%202024-01-02%20172705.png)
 
-        ![Alt text](/readmePhotos/Screenshot%202024-01-02%20172932.png)
-        ![Alt text](/readmePhotos/Screenshot%202024-01-02%20173020.png)
+            Tow photo for reference:
+
+            ![Alt text](/readmePhotos/Screenshot%202024-01-02%20172932.png)
+            ![Alt text](/readmePhotos/Screenshot%202024-01-02%20173020.png)
 
 
     2. Getting sources：git clone [qpid-broker-j.git](https://gitbox.apache.org/repos/asf/qpid-broker-j.git).
@@ -163,7 +166,11 @@
 
 - For more info, please reference _presentation folder_.
 
-![Alt text](readmePhotos/Screenshot%202024-01-02%20183722.png)
+![Alt text](readmePhotos/Screenshot%202024-01-04%20004817.png)
+
+![Alt text](readmePhotos/Screenshot%202024-01-04%20004955.png)
+
+![Alt text](readmePhotos/Screenshot%202024-01-04%20005006.png)
 
 ---
 # Other offical and persuasive reference are listed below:
