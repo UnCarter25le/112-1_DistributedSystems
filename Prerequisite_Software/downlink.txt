@@ -1,0 +1,15 @@
+
+python download
+https://www.python.org/downloads/windows/
+
+java sdk oracle
+https://www.oracle.com/tw/java/technologies/downloads/#jdk17-windows
+
+
+maven
+https://maven.apache.org/download.cgi
+
+
+
+
+
