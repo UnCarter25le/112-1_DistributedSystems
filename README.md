@@ -138,7 +138,14 @@
 
 - presentation/
     
-    The ppt, pdf or recored video about this project.
+    The pdf or recored video about this project.
+
+- Prerequisite_Software/
+    
+    > Please checkout to branch __feature_pre_sw__ and find out them.
+
+    The softwares used in this project, such as java jdk, python, packaged qpid-broker-j, and maven.
+    
     
 
 ## 2. How to execute project
