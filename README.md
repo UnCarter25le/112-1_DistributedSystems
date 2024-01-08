@@ -2,7 +2,7 @@
 
 ### 1. This repo is for the in-service course, distributed systems lectured by [Dr. Liao](http://cfliao.net/en/doku.php).
 
-#### - Coworker is [Shelley](https://github.com/ShelleyHsu); [111971015](https://github.com/richardMZTsai) was excluded due to unqualified.
+#### - Coworker is [Shelley](https://github.com/ShelleyHsu).
 
 ### 2. This project in this repo is about [Apache Qpid](https://qpid.apache.org/index.html).
 
